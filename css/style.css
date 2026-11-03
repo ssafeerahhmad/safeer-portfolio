@@ -33,6 +33,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: clip;
 }
 
 body {
@@ -40,7 +41,7 @@ body {
   color: var(--text-main);
   font-family: var(--font-main);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   background-image: 
     radial-gradient(circle at 15% 10%, rgba(0, 255, 102, 0.07) 0%, transparent 40%),
@@ -550,6 +551,7 @@ section.hero-section {
 }
 
 section.skills-section {
+  position: -webkit-sticky;
   position: sticky;
   top: 72px;
   height: calc(100vh - 72px);
@@ -1472,11 +1474,12 @@ footer.site-footer {
   /* Mobile Skills Horizontal Carousel - Pinned with Vertical Scroll */
   .skills-horizontal-pin-wrapper {
     position: relative;
-    height: 220vh;
+    height: 280vh;
     z-index: 2;
   }
 
   section.skills-section {
+    position: -webkit-sticky;
     position: sticky;
     top: 72px;
     height: calc(100vh - 72px);

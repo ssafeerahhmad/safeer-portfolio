@@ -226,36 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Mobile Touch Swipe Gesture Support (Horizontal Swipe advances / rewinds cards)
-  let touchStartX = 0;
-  let touchStartY = 0;
-  if (softwareTrack && pinWrapper) {
-    softwareTrack.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    softwareTrack.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffX = touchStartX - touchEndX;
-      const diffY = touchStartY - touchEndY;
-
-      // Detect deliberate horizontal swipe
-      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
-        const totalScrollable = pinWrapper.offsetHeight - window.innerHeight;
-        const cardStepDist = totalScrollable / 3;
-        if (diffX > 0) {
-          // Swiped left -> glide forward to next card
-          window.scrollBy({ top: cardStepDist * 0.98, behavior: 'smooth' });
-        } else {
-          // Swiped right -> glide back to previous card
-          window.scrollBy({ top: -cardStepDist * 0.98, behavior: 'smooth' });
-        }
-      }
-    }, { passive: true });
-  }
-
   const remainingStack = [
     { el: worksSection, inner: worksInner },
     { el: journeySection, inner: journeyInner },
@@ -266,7 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMobile = window.innerWidth <= 768;
     const winHeight = window.innerHeight;
     const winWidth = window.innerWidth;
-    const headerHeight = 72;
+    const headerEl = document.querySelector('header.site-header');
+    const headerHeight = headerEl ? headerEl.offsetHeight : 72;
 
     // --- Phase A: Skills Horizontal Glide & Fast 3D Exit to Works (Active on BOTH Desktop & Mobile) ---
     if (pinWrapper && skillsViewport && softwareTrack && cards.length > 0) {
