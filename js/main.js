@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const step = parseInt(dot.getAttribute('data-step'), 10);
       const headerHeight = 72;
       const totalScrollable = pinWrapper.offsetHeight - window.innerHeight;
-      const targetProgress = (step / 3) * 0.74;
+      const targetProgress = (step / 3) * 0.98;
       const targetScrollTop = pinWrapper.offsetTop - headerHeight + (targetProgress * totalScrollable);
       window.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
     });
@@ -244,6 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (softwareTrack) {
         softwareTrack.style.transform = '';
       }
+      if (worksSection) {
+        worksSection.style.transform = '';
+      }
       remainingStack.forEach(s => {
         s.inner.style.transform = '';
         s.inner.style.opacity = '';
@@ -256,12 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const winWidth = window.innerWidth;
     const headerHeight = 72;
 
-    // --- Phase A: Skills Horizontal Glide & 3D Exit ---
+    // --- Phase A: Skills Horizontal Glide & Fast 3D Exit to Works ---
     if (pinWrapper && skillsViewport && softwareTrack && cards.length > 0) {
       const wrapperRect = pinWrapper.getBoundingClientRect();
       const totalScrollable = pinWrapper.offsetHeight - winHeight;
       const currentScroll = -(wrapperRect.top - headerHeight);
-      const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
 
       // Compute starting and ending horizontal translations to center Card 0 and Card 3
       const card0 = cards[0];
@@ -269,30 +271,50 @@ document.addEventListener('DOMContentLoaded', () => {
       const startX = (winWidth - card0.offsetWidth) / 2 - card0.offsetLeft;
       const endX = (winWidth - cardLast.offsetWidth) / 2 - cardLast.offsetLeft;
 
-      if (progress <= 0.78) {
-        // Horizontal sliding between 4 cards
-        const pCard = Math.min(Math.max(progress / 0.78, 0), 1);
+      if (currentScroll < totalScrollable) {
+        // Horizontal sliding between 4 cards (Card 0 -> Card 1 -> Card 2 -> Card 3)
+        const pCard = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
         const currentX = startX + (endX - startX) * pCard;
         softwareTrack.style.transform = `translateX(${currentX}px)`;
 
-        // Keep viewport active & crisp
+        // Keep skills viewport completely active, clear & in-place
         skillsViewport.style.transform = 'scale(1) translateY(0px) translateZ(0)';
         skillsViewport.style.opacity = '1';
         skillsViewport.style.filter = 'blur(0px)';
+
+        if (worksSection) {
+          worksSection.style.transform = '';
+        }
       } else {
-        // Horizontal sliding complete, Card 4 locked in place
+        // Card 4 locked in center position
         softwareTrack.style.transform = `translateX(${endX}px)`;
 
-        // 3D Zoom-out exit as Works rises
-        const pExit = Math.min(Math.max((progress - 0.78) / 0.22, 0), 1);
-        const scale = (1 - 0.16 * pExit).toFixed(3);
-        const opacity = (1 - 0.75 * pExit).toFixed(3);
-        const translateY = (pExit * 45).toFixed(1);
-        const blur = (pExit * 5).toFixed(1);
+        // Fast & snappy transition to Works (completes in 1-2 drags / ~260px)
+        const delta = currentScroll - totalScrollable;
+        const TRANSITION_DIST = 260; // 1-2 mouse wheel drags
+        const totalTravel = winHeight - headerHeight;
+        const pTrans = Math.min(Math.max(delta / TRANSITION_DIST, 0), 1);
 
-        skillsViewport.style.transform = `scale(${scale}) translateY(${translateY}px) translateZ(-${pExit * 80}px)`;
+        // Immediate 3D Zoom-out + Fade of Skills:
+        const scale = (1 - 0.16 * pTrans).toFixed(3);
+        const opacity = (1 - 0.92 * pTrans).toFixed(3);
+        const translateY = (pTrans * 40).toFixed(1);
+        const blur = (pTrans * 6).toFixed(1);
+
+        skillsViewport.style.transform = `scale(${scale}) translateY(${translateY}px) translateZ(-${pTrans * 80}px)`;
         skillsViewport.style.opacity = opacity;
         skillsViewport.style.filter = `blur(${blur}px)`;
+
+        // Swift upward curtain-glide of Works to cover the screen full-bleed:
+        if (worksSection) {
+          if (delta < totalTravel) {
+            const currentTravel = pTrans * totalTravel;
+            const boostY = -(currentTravel - delta);
+            worksSection.style.transform = `translateY(${boostY.toFixed(1)}px)`;
+          } else {
+            worksSection.style.transform = '';
+          }
+        }
       }
 
       // Update active card badge & step indicator based on screen center proximity

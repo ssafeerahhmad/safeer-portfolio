@@ -545,7 +545,7 @@ section.hero-section {
 /* Skills & Software Suite Section with Horizontal Pinned Carousel */
 .skills-horizontal-pin-wrapper {
   position: relative;
-  height: 380vh;
+  height: 200vh;
   z-index: 2;
 }
 
@@ -844,6 +844,7 @@ section.works-section {
   background: var(--bg-dark);
   box-shadow: 0 -35px 80px rgba(0, 0, 0, 0.95), 0 -1px 0 rgba(0, 255, 102, 0.3);
   margin-top: 0;
+  will-change: transform;
 }
 
 /* Filter Bar */
