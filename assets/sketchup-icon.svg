@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="10" fill="#182026"/>
+  <!-- SketchUp 3D Red Cube Steps -->
+  <path fill="#005F9E" d="M24 6L8 15.2v17.6L24 42l16-9.2V15.2L24 6z"/>
+  <path fill="#0077C8" d="M24 6l16 9.2-16 8-16-8L24 6z"/>
+  <path fill="#E62434" d="M14 19v14l10 5.5v-14L14 19z"/>
+  <path fill="#B01422" d="M24 23.5l10-5.5v14L24 38.5V23.5z"/>
+  <path fill="#FF4D5A" d="M24 13.5l10 5-10 5-10-5 10-5z"/>
+</svg>

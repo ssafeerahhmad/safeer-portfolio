@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="d5grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="50%" stop-color="#2979FF"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="10" fill="#0A0E17"/>
+  <!-- D5 Render Iconic D Emblem with ray reflection -->
+  <path d="M13 11h11c7.2 0 13 5.8 13 13s-5.8 13-13 13H13V11zm6 6v14h5c3.9 0 7-3.1 7-7s-3.1-7-7-7h-5z" fill="url(#d5grad)"/>
+  <circle cx="28" cy="24" r="3.5" fill="#00E5FF"/>
+  <path d="M30 16l4-4m-18 20l4-4" stroke="#00E5FF" stroke-width="2" stroke-linecap="round"/>
+</svg>
