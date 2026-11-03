@@ -168,33 +168,34 @@ nav.main-nav a.active::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   height: 38px;
-  padding: 0 12px;
-  background: rgba(255, 255, 255, 0.04);
+  padding: 0 13px;
+  background: rgba(0, 255, 102, 0.06);
   color: #fff;
-  border: 1px solid var(--border-dim);
+  border: 1px solid rgba(0, 255, 102, 0.4);
   border-radius: var(--radius-sm);
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   letter-spacing: 0.5px;
   text-decoration: none;
   transition: var(--transition);
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
 }
 
 .btn-cv-square i {
   color: var(--accent-green);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   transition: transform 0.2s ease;
 }
 
 .btn-cv-square:hover {
-  background: rgba(0, 255, 102, 0.12);
+  background: rgba(0, 255, 102, 0.2);
   border-color: var(--accent-green);
   color: var(--accent-green);
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.35);
   transform: translateY(-2px);
 }
 
