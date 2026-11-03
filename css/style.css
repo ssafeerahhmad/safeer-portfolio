@@ -1468,40 +1468,184 @@ footer.site-footer {
   .software-categories-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Mobile Skills Horizontal Carousel - Pinned with Vertical Scroll */
   .skills-horizontal-pin-wrapper {
-    height: auto !important;
+    position: relative;
+    height: 220vh;
+    z-index: 2;
   }
+
   section.skills-section {
-    position: relative !important;
-    top: 0 !important;
-    height: auto !important;
-    max-height: none !important;
-    padding: 60px 0 !important;
+    position: sticky;
+    top: 72px;
+    height: calc(100vh - 72px);
+    height: calc(100dvh - 72px);
+    max-height: calc(100dvh - 72px);
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0 1rem 0;
+    box-sizing: border-box;
+    perspective: 1000px;
   }
+
   .skills-sticky-viewport {
-    transform: none !important;
-    opacity: 1 !important;
-    filter: none !important;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform-origin: center 30%;
+    will-change: transform, opacity, filter;
+    transition: transform 0.08s ease-out, opacity 0.08s ease-out, filter 0.08s ease-out;
   }
-  .software-track-outer {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 1.5rem;
-  }
-  .software-horizontal-track {
+
+  .skills-header-container {
     padding: 0 1rem;
-    gap: 1.25rem;
-    transform: none !important;
   }
+
+  .skills-header-container .section-badge-header {
+    margin-bottom: 0.4rem !important;
+  }
+
+  .skills-header-container .section-subtitle {
+    font-size: 0.76rem;
+    line-height: 1.3;
+    margin-bottom: 0.35rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .disciplines-cloud {
+    display: none !important;
+  }
+
+  .carousel-step-indicator {
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+    gap: 0.75rem;
+  }
+
+  .step-num {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  .step-dot {
+    width: 16px;
+    height: 3.5px;
+  }
+
+  .step-dot.active {
+    width: 36px;
+  }
+
+  .step-hint {
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+  }
+
+  .software-track-outer {
+    width: 100%;
+    overflow: visible;
+    position: relative;
+    margin-top: 0.3rem;
+  }
+
+  .software-horizontal-track {
+    display: flex;
+    gap: 1.25rem;
+    will-change: transform;
+    transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 0 6vw;
+    width: max-content;
+  }
+
   .software-card-featured {
     width: 86vw;
     min-height: auto;
-    padding: 1.5rem;
-    opacity: 1 !important;
-    transform: none !important;
+    max-height: calc(100dvh - 230px);
+    flex-shrink: 0;
+    padding: 1.1rem 1.2rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.35;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                opacity 0.3s ease;
   }
+
+  .software-card-featured.card-active {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--accent-green);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 255, 102, 0.2);
+  }
+
+  .featured-card-badge {
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+  }
+
+  .software-card-header {
+    padding-bottom: 0.45rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .software-card-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .software-card-subtitle {
+    font-size: 0.74rem;
+    margin-top: 0.2rem;
+  }
+
   .horizontal-grid-list {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.45rem;
+  }
+
+  .software-item.large-item {
+    padding: 7px 11px;
+    gap: 10px;
+    border-radius: 8px;
+  }
+
+  .large-badge {
+    width: 34px;
+    height: 34px;
+    font-size: 0.95rem;
+    border-radius: 7px;
+    flex-shrink: 0;
+  }
+
+  .software-brand-logo {
+    max-width: 22px;
+    max-height: 22px;
+  }
+
+  .software-name {
+    font-size: 0.84rem;
+  }
+
+  .software-role {
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
   nav.main-nav {
     display: none;

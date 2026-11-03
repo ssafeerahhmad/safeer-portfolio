@@ -226,6 +226,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Mobile Touch Swipe Gesture Support (Horizontal Swipe advances / rewinds cards)
+  let touchStartX = 0;
+  let touchStartY = 0;
+  if (softwareTrack && pinWrapper) {
+    softwareTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    softwareTrack.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+
+      // Detect deliberate horizontal swipe
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        const totalScrollable = pinWrapper.offsetHeight - window.innerHeight;
+        const cardStepDist = totalScrollable / 3;
+        if (diffX > 0) {
+          // Swiped left -> glide forward to next card
+          window.scrollBy({ top: cardStepDist * 0.98, behavior: 'smooth' });
+        } else {
+          // Swiped right -> glide back to previous card
+          window.scrollBy({ top: -cardStepDist * 0.98, behavior: 'smooth' });
+        }
+      }
+    }, { passive: true });
+  }
+
   const remainingStack = [
     { el: worksSection, inner: worksInner },
     { el: journeySection, inner: journeyInner },
@@ -234,32 +264,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateSectionStacks = () => {
     const isMobile = window.innerWidth <= 768;
-
-    if (isMobile) {
-      if (skillsViewport) {
-        skillsViewport.style.transform = '';
-        skillsViewport.style.opacity = '';
-        skillsViewport.style.filter = '';
-      }
-      if (softwareTrack) {
-        softwareTrack.style.transform = '';
-      }
-      if (worksSection) {
-        worksSection.style.transform = '';
-      }
-      remainingStack.forEach(s => {
-        s.inner.style.transform = '';
-        s.inner.style.opacity = '';
-        s.inner.style.filter = '';
-      });
-      return;
-    }
-
     const winHeight = window.innerHeight;
     const winWidth = window.innerWidth;
     const headerHeight = 72;
 
-    // --- Phase A: Skills Horizontal Glide & Fast 3D Exit to Works ---
+    // --- Phase A: Skills Horizontal Glide & Fast 3D Exit to Works (Active on BOTH Desktop & Mobile) ---
     if (pinWrapper && skillsViewport && softwareTrack && cards.length > 0) {
       const wrapperRect = pinWrapper.getBoundingClientRect();
       const totalScrollable = pinWrapper.offsetHeight - winHeight;
@@ -351,7 +360,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // --- Phase B: Works, Journey, Contact Overlapping 3D Stacks ---
+    // --- Phase B: Works, Journey, Contact Overlapping 3D Stacks (Desktop only) ---
+    if (isMobile) {
+      remainingStack.forEach(s => {
+        s.inner.style.transform = '';
+        s.inner.style.opacity = '';
+        s.inner.style.filter = '';
+      });
+      return;
+    }
+
     for (let i = 0; i < remainingStack.length - 1; i++) {
       const current = remainingStack[i];
       const next = remainingStack[i + 1];
