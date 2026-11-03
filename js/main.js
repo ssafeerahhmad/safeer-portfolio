@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Hi Safeer,\n\nName: ${name}\nContact: ${contact}\nService: ${service}\n\nProject Details:\n${message}\n\nSent from your portfolio website.`
       );
 
-      window.location.href = `mailto:ssafeerahhmad@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:safeerahhmad@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 
