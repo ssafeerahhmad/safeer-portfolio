@@ -198,17 +198,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Fast & Snappy 3D Zoom-out Overlap Across All Sections (Skills, Works, Journey, Contact)
-  const stackSections = [
-    { el: document.getElementById('skills'), inner: document.getElementById('skillsInner') },
-    { el: document.getElementById('works'), inner: document.getElementById('worksInner') },
-    { el: document.getElementById('journey'), inner: document.getElementById('journeyInner') },
-    { el: document.getElementById('contact'), inner: document.getElementById('contactInner') }
+  // 6. Skills Horizontal Carousel + 3D Zoom-out Exit + Section Stacks
+  const pinWrapper = document.getElementById('skillsPinWrapper');
+  const skillsViewport = document.getElementById('skillsStickyViewport');
+  const softwareTrack = document.getElementById('softwareTrack');
+  const cards = Array.from(document.querySelectorAll('.software-card-featured'));
+  const stepDots = Array.from(document.querySelectorAll('.step-dot'));
+  const stepNum = document.getElementById('carouselStepNum');
+
+  const worksSection = document.getElementById('works');
+  const worksInner = document.getElementById('worksInner');
+  const journeySection = document.getElementById('journey');
+  const journeyInner = document.getElementById('journeyInner');
+  const contactSection = document.getElementById('contact');
+  const contactInner = document.getElementById('contactInner');
+
+  // Interactive Dot Click Navigation
+  stepDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      if (!pinWrapper) return;
+      const step = parseInt(dot.getAttribute('data-step'), 10);
+      const headerHeight = 72;
+      const totalScrollable = pinWrapper.offsetHeight - window.innerHeight;
+      const targetProgress = (step / 3) * 0.74;
+      const targetScrollTop = pinWrapper.offsetTop - headerHeight + (targetProgress * totalScrollable);
+      window.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+    });
+  });
+
+  const remainingStack = [
+    { el: worksSection, inner: worksInner },
+    { el: journeySection, inner: journeyInner },
+    { el: contactSection, inner: contactInner }
   ].filter(s => s.el && s.inner);
 
   const updateSectionStacks = () => {
-    if (window.innerWidth <= 768) {
-      stackSections.forEach(s => {
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      if (skillsViewport) {
+        skillsViewport.style.transform = '';
+        skillsViewport.style.opacity = '';
+        skillsViewport.style.filter = '';
+      }
+      if (softwareTrack) {
+        softwareTrack.style.transform = '';
+      }
+      remainingStack.forEach(s => {
         s.inner.style.transform = '';
         s.inner.style.opacity = '';
         s.inner.style.filter = '';
@@ -217,36 +253,103 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const winHeight = window.innerHeight;
+    const winWidth = window.innerWidth;
     const headerHeight = 72;
 
-    for (let i = 0; i < stackSections.length - 1; i++) {
-      const current = stackSections[i];
-      const next = stackSections[i + 1];
+    // --- Phase A: Skills Horizontal Glide & 3D Exit ---
+    if (pinWrapper && skillsViewport && softwareTrack && cards.length > 0) {
+      const wrapperRect = pinWrapper.getBoundingClientRect();
+      const totalScrollable = pinWrapper.offsetHeight - winHeight;
+      const currentScroll = -(wrapperRect.top - headerHeight);
+      const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
 
+      // Compute starting and ending horizontal translations to center Card 0 and Card 3
+      const card0 = cards[0];
+      const cardLast = cards[cards.length - 1];
+      const startX = (winWidth - card0.offsetWidth) / 2 - card0.offsetLeft;
+      const endX = (winWidth - cardLast.offsetWidth) / 2 - cardLast.offsetLeft;
+
+      if (progress <= 0.78) {
+        // Horizontal sliding between 4 cards
+        const pCard = Math.min(Math.max(progress / 0.78, 0), 1);
+        const currentX = startX + (endX - startX) * pCard;
+        softwareTrack.style.transform = `translateX(${currentX}px)`;
+
+        // Keep viewport active & crisp
+        skillsViewport.style.transform = 'scale(1) translateY(0px) translateZ(0)';
+        skillsViewport.style.opacity = '1';
+        skillsViewport.style.filter = 'blur(0px)';
+      } else {
+        // Horizontal sliding complete, Card 4 locked in place
+        softwareTrack.style.transform = `translateX(${endX}px)`;
+
+        // 3D Zoom-out exit as Works rises
+        const pExit = Math.min(Math.max((progress - 0.78) / 0.22, 0), 1);
+        const scale = (1 - 0.16 * pExit).toFixed(3);
+        const opacity = (1 - 0.75 * pExit).toFixed(3);
+        const translateY = (pExit * 45).toFixed(1);
+        const blur = (pExit * 5).toFixed(1);
+
+        skillsViewport.style.transform = `scale(${scale}) translateY(${translateY}px) translateZ(-${pExit * 80}px)`;
+        skillsViewport.style.opacity = opacity;
+        skillsViewport.style.filter = `blur(${blur}px)`;
+      }
+
+      // Update active card badge & step indicator based on screen center proximity
+      let bestIndex = 0;
+      let minDistance = Infinity;
+      cards.forEach((card, idx) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(winWidth / 2 - cardCenter);
+        if (dist < minDistance) {
+          minDistance = dist;
+          bestIndex = idx;
+        }
+      });
+
+      cards.forEach((card, idx) => {
+        if (idx === bestIndex) {
+          card.classList.add('card-active');
+        } else {
+          card.classList.remove('card-active');
+        }
+      });
+
+      stepDots.forEach((dot, idx) => {
+        if (idx === bestIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      if (stepNum) {
+        stepNum.textContent = `0${bestIndex + 1} / 04`;
+      }
+    }
+
+    // --- Phase B: Works, Journey, Contact Overlapping 3D Stacks ---
+    for (let i = 0; i < remainingStack.length - 1; i++) {
+      const current = remainingStack[i];
+      const next = remainingStack[i + 1];
       const nextRect = next.el.getBoundingClientRect();
 
-      // The moment the next section enters the bottom of the viewport
-      // up until it locks into position at the header:
       if (nextRect.top < winHeight && nextRect.top > headerHeight) {
-        // Immediate overlap: progress moves from 0 (touches bottom) to 1 (reaches top)
-        const progress = Math.min(Math.max((winHeight - nextRect.top) / (winHeight - headerHeight), 0), 1);
+        const p = Math.min(Math.max((winHeight - nextRect.top) / (winHeight - headerHeight), 0), 1);
+        const scale = (1 - 0.14 * p).toFixed(3);
+        const opacity = (1 - 0.65 * p).toFixed(3);
+        const translateY = (p * 40).toFixed(1);
+        const blur = (p * 5).toFixed(1);
 
-        // Immediate 3D pushback: scale 1 -> 0.86, opacity 1 -> 0.35, blur 0 -> 5px
-        const scale = (1 - 0.14 * progress).toFixed(3);
-        const opacity = (1 - 0.65 * progress).toFixed(3);
-        const translateY = (progress * 40).toFixed(1);
-        const blur = (progress * 5).toFixed(1);
-
-        current.inner.style.transform = `scale(${scale}) translateY(${translateY}px) translateZ(-${progress * 70}px)`;
+        current.inner.style.transform = `scale(${scale}) translateY(${translateY}px) translateZ(-${p * 70}px)`;
         current.inner.style.opacity = opacity;
         current.inner.style.filter = `blur(${blur}px)`;
       } else if (nextRect.top <= headerHeight) {
-        // Fully overlapped by next section
         current.inner.style.transform = 'scale(0.86) translateY(40px) translateZ(-70px)';
         current.inner.style.opacity = '0.35';
         current.inner.style.filter = 'blur(5px)';
       } else {
-        // Next section has not yet started entering
         current.inner.style.transform = 'scale(1) translateY(0px) translateZ(0)';
         current.inner.style.opacity = '1';
         current.inner.style.filter = 'blur(0px)';

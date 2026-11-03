@@ -112,143 +112,169 @@
     </div>
   </section>
 
-  <!-- Skills & Software Suite Section -->
-  <section class="skills-section stack-section" id="skills">
-    <div class="container stack-inner" id="skillsInner">
-      
-      <div class="section-badge-header">
-        <div class="section-badge">SKILLS & TOOLKIT</div>
-        <p class="section-subtitle">Multi-disciplinary visual artistry spanning 3D spatial visualization, film aesthetics, motion graphics, and precision brand design.</p>
-      </div>
+  <!-- Skills & Software Suite Section with Horizontal Pinned Carousel -->
+  <div class="skills-horizontal-pin-wrapper" id="skillsPinWrapper">
+    <section class="skills-section" id="skills">
+      <div class="skills-sticky-viewport" id="skillsStickyViewport">
+        
+        <div class="container skills-header-container">
+          <div class="section-badge-header" style="margin-bottom: 1.25rem;">
+            <div class="section-badge">SKILLS & TOOLKIT</div>
+            <p class="section-subtitle">Multi-disciplinary visual artistry spanning 3D spatial visualization, film aesthetics, motion graphics, and precision brand design.</p>
+          </div>
 
-        <!-- Discipline Tags Cloud matching CV top list -->
-        <div class="disciplines-cloud">
-          <span class="discipline-chip"><i class="fa-solid fa-cube" style="color: #00ff66; margin-right: 6px;"></i> Graphic Design</span>
-          <span class="discipline-chip"><i class="fa-solid fa-vr-cardboard" style="color: #00ff66; margin-right: 6px;"></i> 3D Design & Visualization</span>
-          <span class="discipline-chip"><i class="fa-solid fa-boxes-stacked" style="color: #00ff66; margin-right: 6px;"></i> Product Modeling</span>
-          <span class="discipline-chip"><i class="fa-solid fa-film" style="color: #00ff66; margin-right: 6px;"></i> 3D Animation</span>
-          <span class="discipline-chip"><i class="fa-solid fa-store" style="color: #00ff66; margin-right: 6px;"></i> Signage & Exhibition Booth Design</span>
-          <span class="discipline-chip"><i class="fa-solid fa-clapperboard" style="color: #00ff66; margin-right: 6px;"></i> Film Graphics</span>
-          <span class="discipline-chip"><i class="fa-solid fa-wand-magic-sparkles" style="color: #00ff66; margin-right: 6px;"></i> Motion Graphics</span>
+          <!-- Discipline Tags Cloud matching CV top list -->
+          <div class="disciplines-cloud" style="margin-bottom: 1rem;">
+            <span class="discipline-chip"><i class="fa-solid fa-cube" style="color: #00ff66; margin-right: 6px;"></i> Graphic Design</span>
+            <span class="discipline-chip"><i class="fa-solid fa-vr-cardboard" style="color: #00ff66; margin-right: 6px;"></i> 3D Design & Visualization</span>
+            <span class="discipline-chip"><i class="fa-solid fa-boxes-stacked" style="color: #00ff66; margin-right: 6px;"></i> Product Modeling</span>
+            <span class="discipline-chip"><i class="fa-solid fa-film" style="color: #00ff66; margin-right: 6px;"></i> 3D Animation</span>
+            <span class="discipline-chip"><i class="fa-solid fa-store" style="color: #00ff66; margin-right: 6px;"></i> Signage & Exhibition Booth Design</span>
+            <span class="discipline-chip"><i class="fa-solid fa-clapperboard" style="color: #00ff66; margin-right: 6px;"></i> Film Graphics</span>
+            <span class="discipline-chip"><i class="fa-solid fa-wand-magic-sparkles" style="color: #00ff66; margin-right: 6px;"></i> Motion Graphics</span>
+          </div>
+
+          <!-- Carousel Step Indicator -->
+          <div class="carousel-step-indicator">
+            <span class="step-num" id="carouselStepNum">01 / 04</span>
+            <div class="step-dots" id="carouselStepDots">
+              <span class="step-dot active" data-step="0"></span>
+              <span class="step-dot" data-step="1"></span>
+              <span class="step-dot" data-step="2"></span>
+              <span class="step-dot" data-step="3"></span>
+            </div>
+            <span class="step-hint"><i class="fa-solid fa-arrows-left-right"></i> Scroll down to glide through softwares</span>
+          </div>
         </div>
 
-        <!-- 4 Software Category Cards Replicating CV Structure (Updated: 3ds Max, Cinema 4D, KeyShot removed) -->
-        <div class="software-categories-grid">
-          
-          <!-- 3D Designing Softwares -->
-          <div class="software-card">
-            <div class="software-card-header">
-              <h3 class="software-card-title">3D Designing Softwares</h3>
+        <!-- Horizontal Software Track -->
+        <div class="software-track-outer">
+          <div class="software-horizontal-track" id="softwareTrack">
+            
+            <!-- Card 1: 3D Designing Softwares (Starts in Center Stage, Large & Hero Sized) -->
+            <div class="software-card-featured card-active" data-index="0">
+              <div class="featured-card-badge">01 • 3D SPATIAL & VISUALIZATION</div>
+              <div class="software-card-header">
+                <h3 class="software-card-title">3D Designing Softwares</h3>
+                <p class="software-card-subtitle">Spatial Visualization, Cinematic 3D Sets & Photorealistic Product Modeling</p>
+              </div>
+              <ul class="software-list horizontal-grid-list">
+                <!-- Blender -->
+                <li class="software-item large-item">
+                  <div class="software-icon-badge software-logo-img-wrap large-badge">
+                    <img src="assets/blender-icon.png" alt="Blender Logo" class="software-brand-logo">
+                  </div>
+                  <div class="software-info">
+                    <span class="software-name">Blender</span>
+                    <span class="software-role">Primary 3D Modeling, Scene Composition & Photoreal Renders</span>
+                  </div>
+                </li>
+                <!-- SketchUp -->
+                <li class="software-item large-item">
+                  <div class="software-icon-badge software-logo-img-wrap large-badge">
+                    <img src="assets/sketchup-icon.svg" alt="SketchUp Logo" class="software-brand-logo">
+                  </div>
+                  <div class="software-info">
+                    <span class="software-name">SketchUp</span>
+                    <span class="software-role">Architectural Precision, Exhibition Booth Planning & Spatial Layouts</span>
+                  </div>
+                </li>
+                <!-- D5 Render -->
+                <li class="software-item large-item">
+                  <div class="software-icon-badge software-logo-img-wrap large-badge">
+                    <img src="assets/d5-icon.svg" alt="D5 Render Logo" class="software-brand-logo">
+                  </div>
+                  <div class="software-info">
+                    <span class="software-name">D5 Render</span>
+                    <span class="software-role">Real-Time Raytraced Lighting, Atmosphere & High-End Walkthroughs</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul class="software-list">
-              <!-- Blender -->
-              <li class="software-item">
-                <div class="software-icon-badge software-logo-img-wrap">
-                  <img src="assets/blender-icon.png" alt="Blender Logo" class="software-brand-logo">
-                </div>
-                <div class="software-info">
-                  <span class="software-name">Blender</span>
-                  <span class="software-role">3D Modeling & Rendering</span>
-                </div>
-              </li>
-              <!-- SketchUp -->
-              <li class="software-item">
-                <div class="software-icon-badge software-logo-img-wrap">
-                  <img src="assets/sketchup-icon.svg" alt="SketchUp Logo" class="software-brand-logo">
-                </div>
-                <div class="software-info">
-                  <span class="software-name">SketchUp</span>
-                  <span class="software-role">3D Spatial & Architecture</span>
-                </div>
-              </li>
-              <!-- D5 Render -->
-              <li class="software-item">
-                <div class="software-icon-badge software-logo-img-wrap">
-                  <img src="assets/d5-icon.svg" alt="D5 Render Logo" class="software-brand-logo">
-                </div>
-                <div class="software-info">
-                  <span class="software-name">D5 Render</span>
-                  <span class="software-role">Real-Time Raytracing</span>
-                </div>
-              </li>
-            </ul>
-          </div>
 
-          <!-- Graphic Designing Softwares -->
-          <div class="software-card">
-            <div class="software-card-header">
-              <h3 class="software-card-title">Graphic Designing Softwares</h3>
+            <!-- Card 2: Graphic Designing Softwares -->
+            <div class="software-card-featured" data-index="1">
+              <div class="featured-card-badge">02 • VISUAL IDENTITY & BRANDING</div>
+              <div class="software-card-header">
+                <h3 class="software-card-title">Graphic Designing Softwares</h3>
+                <p class="software-card-subtitle">Vector Identity, Signage CAD Specifications & Commercial Prepress</p>
+              </div>
+              <ul class="software-list horizontal-grid-list">
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-ps large-badge">Ps</div>
+                  <div class="software-info">
+                    <span class="software-name">Adobe Photoshop</span>
+                    <span class="software-role">Key Visual Manipulation, Film Retouching & Matte Painting Textures</span>
+                  </div>
+                </li>
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-ai large-badge">Ai</div>
+                  <div class="software-info">
+                    <span class="software-name">Adobe Illustrator</span>
+                    <span class="software-role">Vector Branding, Precision Pylon Drafting & Print Identity Systems</span>
+                  </div>
+                </li>
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-cd large-badge">CD</div>
+                  <div class="software-info">
+                    <span class="software-name">CorelDRAW</span>
+                    <span class="software-role">Signage Production, CNC Plotter Cutting Paths & Structural Documents</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul class="software-list">
-              <li class="software-item">
-                <div class="software-icon-badge icon-ps">Ps</div>
-                <div class="software-info">
-                  <span class="software-name">Adobe Photoshop</span>
-                  <span class="software-role">Photo Manipulation & Texture</span>
-                </div>
-              </li>
-              <li class="software-item">
-                <div class="software-icon-badge icon-ai">Ai</div>
-                <div class="software-info">
-                  <span class="software-name">Adobe Illustrator</span>
-                  <span class="software-role">Vector Graphics & Branding</span>
-                </div>
-              </li>
-              <li class="software-item">
-                <div class="software-icon-badge icon-cd">CD</div>
-                <div class="software-info">
-                  <span class="software-name">CorelDRAW</span>
-                  <span class="software-role">Signage & CNC Production</span>
-                </div>
-              </li>
-            </ul>
-          </div>
 
-          <!-- Motion Design & Editing -->
-          <div class="software-card">
-            <div class="software-card-header">
-              <h3 class="software-card-title">Motion Design & Editing</h3>
+            <!-- Card 3: Motion Design & Editing -->
+            <div class="software-card-featured" data-index="2">
+              <div class="featured-card-badge">03 • MOTION & BROADCAST</div>
+              <div class="software-card-header">
+                <h3 class="software-card-title">Motion Design & Editing</h3>
+                <p class="software-card-subtitle">Kinetic Typography, Broadcast Title Sequences & Film Visuals</p>
+              </div>
+              <ul class="software-list horizontal-grid-list">
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-ae large-badge">Ae</div>
+                  <div class="software-info">
+                    <span class="software-name">Adobe After Effects</span>
+                    <span class="software-role">VFX Compositing, Stadium LED Display Animations & Cinematic Intro Sequences</span>
+                  </div>
+                </li>
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-pr large-badge">Pr</div>
+                  <div class="software-info">
+                    <span class="software-name">Adobe Premiere Pro</span>
+                    <span class="software-role">Commercial Film Editing, Multitrack Audio Mixing & Color Grading</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul class="software-list">
-              <li class="software-item">
-                <div class="software-icon-badge icon-ae">Ae</div>
-                <div class="software-info">
-                  <span class="software-name">Adobe After Effects</span>
-                  <span class="software-role">VFX & Motion Graphics</span>
-                </div>
-              </li>
-              <li class="software-item">
-                <div class="software-icon-badge icon-pr">Pr</div>
-                <div class="software-info">
-                  <span class="software-name">Adobe Premiere Pro</span>
-                  <span class="software-role">Video Editing & Grading</span>
-                </div>
-              </li>
-            </ul>
-          </div>
 
-          <!-- UI / UX -->
-          <div class="software-card">
-            <div class="software-card-header">
-              <h3 class="software-card-title">UI / UX</h3>
+            <!-- Card 4: UI / UX -->
+            <div class="software-card-featured" data-index="3">
+              <div class="featured-card-badge">04 • INTERACTION & PROTOTYPING</div>
+              <div class="software-card-header">
+                <h3 class="software-card-title">UI / UX Design</h3>
+                <p class="software-card-subtitle">Interactive Wireframing, High-Fidelity UI Systems & Web Prototypes</p>
+              </div>
+              <ul class="software-list horizontal-grid-list">
+                <li class="software-item large-item">
+                  <div class="software-icon-badge icon-figma large-badge">
+                    <i class="fa-brands fa-figma"></i>
+                  </div>
+                  <div class="software-info">
+                    <span class="software-name">Figma</span>
+                    <span class="software-role">Responsive Component Libraries, Interactive Prototypes & Developer Handoff</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul class="software-list">
-              <li class="software-item">
-                <div class="software-icon-badge icon-figma">
-                  <i class="fa-brands fa-figma"></i>
-                </div>
-                <div class="software-info">
-                  <span class="software-name">Figma</span>
-                  <span class="software-role">Interface & Prototyping</span>
-                </div>
-              </li>
-            </ul>
-          </div>
 
+          </div>
         </div>
 
       </div>
     </section>
+  </div>
 
   <!-- Featured Works / Behance Showcase Section -->
   <section class="works-section stack-section" id="works">
