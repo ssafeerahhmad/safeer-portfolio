@@ -178,25 +178,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Interactive Cursor Tracker / Spotlight on SAFEER AHMAD Title
-  const heroTitle = document.getElementById('heroTitle');
-  if (heroTitle) {
-    const updateTitleLight = (e) => {
-      const rect = heroTitle.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      heroTitle.style.setProperty('--mouse-x', `${x}%`);
-      heroTitle.style.setProperty('--mouse-y', `${y}%`);
-    };
+  // 5. Fixed 3D Spline Hero Scene - Smooth Fade-Out as Content Sweeps Over It
+  const heroSplineWrapper = document.getElementById('heroSplineWrapper');
 
-    heroTitle.addEventListener('mousemove', updateTitleLight);
-    heroTitle.addEventListener('pointermove', updateTitleLight);
+  const updateHeroSplineFade = () => {
+    if (!heroSplineWrapper) return;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    // Fade over the initial scroll distance as the content curtain glides up over the 3D scene
+    const fadeDistance = Math.max(260, window.innerHeight * 0.45);
+    const progress = Math.min(Math.max(scrollY / fadeDistance, 0), 1);
 
-    heroTitle.addEventListener('mouseleave', () => {
-      heroTitle.style.setProperty('--mouse-x', '50%');
-      heroTitle.style.setProperty('--mouse-y', '50%');
-    });
-  }
+    const opacity = (1 - progress).toFixed(3);
+    const scale = (1 - 0.12 * progress).toFixed(3);
+    const translateY = (progress * 30).toFixed(1);
+    const blur = (progress * 5).toFixed(1);
+
+    heroSplineWrapper.style.opacity = opacity;
+    heroSplineWrapper.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+    heroSplineWrapper.style.filter = `blur(${blur}px)`;
+
+    if (progress >= 0.98) {
+      heroSplineWrapper.style.pointerEvents = 'none';
+    } else {
+      heroSplineWrapper.style.pointerEvents = 'auto';
+    }
+  };
 
   // 6. Skills Horizontal Carousel + 3D Zoom-out Exit + Section Stacks
   const pinWrapper = document.getElementById('skillsPinWrapper');
@@ -372,6 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
+        updateHeroSplineFade();
         updateSectionStacks();
         ticking = false;
       });
@@ -379,6 +386,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  window.addEventListener('resize', updateSectionStacks);
+  window.addEventListener('resize', () => {
+    updateHeroSplineFade();
+    updateSectionStacks();
+  });
+  updateHeroSplineFade();
   updateSectionStacks();
 });
