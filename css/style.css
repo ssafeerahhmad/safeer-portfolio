@@ -251,32 +251,33 @@ section.hero-section {
   width: 100%;
 }
 
-/* Pinned 3D Spline Stage (Stays fixed in viewport while overlay content sweeps over it) */
+/* Pinned 3D Spline Stage (Edge-to-edge full width, top flush, no card borders) */
 .hero-spline-pin-stage {
   position: -webkit-sticky;
   position: sticky;
   top: 72px;
-  height: clamp(380px, 58vh, 600px);
+  height: clamp(420px, 68vh, 750px);
   width: 100%;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1.5rem 0 1.5rem;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  perspective: 1000px;
+  overflow: hidden;
 }
 
 .hero-spline-wrapper {
   width: 100%;
   height: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   position: relative;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 102, 0.04) 0%, rgba(7, 10, 8, 0.85) 85%);
-  border: 1px solid rgba(0, 255, 102, 0.2);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 35px rgba(0, 0, 0, 0.85);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   will-change: transform, opacity, filter;
   transition: opacity 0.08s ease-out, transform 0.08s ease-out, filter 0.08s ease-out;
 }
@@ -293,11 +294,11 @@ section.hero-section {
 .hero-scroll-overlay {
   position: relative;
   z-index: 5;
-  background: linear-gradient(180deg, rgba(7, 10, 8, 0.96) 0%, var(--bg-dark) 80px, var(--bg-dark) 100%);
-  padding-top: 2rem;
+  background: linear-gradient(180deg, rgba(7, 10, 8, 0.98) 0%, var(--bg-dark) 80px, var(--bg-dark) 100%);
+  padding-top: 2.5rem;
   padding-bottom: 4rem;
-  margin-top: 1rem;
-  box-shadow: 0 -35px 80px rgba(7, 10, 8, 0.98), 0 -1px 0 rgba(0, 255, 102, 0.25);
+  margin-top: 0;
+  box-shadow: 0 -40px 90px rgba(7, 10, 8, 0.98), 0 -1px 0 rgba(0, 255, 102, 0.25);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
@@ -1503,12 +1504,13 @@ footer.site-footer {
   }
   .hero-spline-pin-stage {
     top: 72px;
-    height: clamp(280px, 46vh, 380px);
-    padding: 1rem 1rem 0 1rem;
+    height: clamp(320px, 55vh, 460px);
+    padding: 0;
+    margin: 0;
   }
   .hero-scroll-overlay {
-    margin-top: 0.5rem;
-    padding-top: 1.5rem;
+    margin-top: 0;
+    padding-top: 1.75rem;
     padding-bottom: 2.5rem;
   }
   .hero-bio-row {
