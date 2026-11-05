@@ -330,10 +330,15 @@ section.hero-section {
 
 .hero-stage-subtitle-wrap {
   position: absolute;
-  right: clamp(1.5rem, 3.5vw, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
   bottom: clamp(1.2rem, 2.5vh, 2rem);
   z-index: 4;
   pointer-events: auto;
+  width: max-content;
+  max-width: 90vw;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-stage-subtitle-bar {
@@ -1678,9 +1683,14 @@ footer.site-footer {
     bottom: 5%;
   }
   .hero-stage-subtitle-wrap {
-    right: 0.75rem;
-    bottom: 0.75rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 0.85rem;
+    width: max-content;
     max-width: calc(100% - 1.5rem);
+    display: flex;
+    justify-content: center;
   }
   .hero-stage-subtitle-bar {
     padding: 0.35rem 0.8rem;
