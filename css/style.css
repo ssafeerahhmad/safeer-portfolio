@@ -290,6 +290,61 @@ section.hero-section {
   pointer-events: auto;
 }
 
+/* Hero Stage Foreground Overlays (Still Portrait on Right & Subtitle Bottom-Right) */
+.hero-stage-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* Allows mouse/touch drag to rotate 3D Spline underneath */
+  z-index: 3;
+  overflow: hidden;
+}
+
+.hero-stage-portrait-img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 95%;
+  max-height: clamp(400px, 68vh, 740px);
+  width: auto;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(0, 255, 102, 0.28));
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  z-index: 2;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hero-stage-portrait-glow {
+  position: absolute;
+  right: 6%;
+  bottom: 10%;
+  width: 340px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(0, 255, 102, 0.28) 0%, rgba(16, 185, 129, 0.08) 50%, transparent 75%);
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-stage-subtitle-wrap {
+  position: absolute;
+  right: clamp(1.5rem, 3.5vw, 3rem);
+  bottom: clamp(1.2rem, 2.5vh, 2rem);
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.hero-stage-subtitle-bar {
+  background: rgba(10, 16, 13, 0.92);
+  border: 1px solid rgba(0, 255, 102, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 24px rgba(0, 255, 102, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin: 0;
+}
+
 /* Hero Content Overlay (Curtain that sweeps UP OVER the 3D scene) */
 .hero-scroll-overlay {
   position: relative;
@@ -450,50 +505,109 @@ section.hero-section {
   transform: translateY(-3px);
 }
 
-/* Right Half Cutout Image Column */
-.hero-half-img-col {
+/* Right Specialties Column in Hero Bio Row */
+.hero-specialties-col {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
-.hero-half-img-wrap {
-  position: relative;
+.hero-specialties-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: 1.85rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 360px;
+  flex-direction: column;
+  gap: 1.15rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero-half-img-glow {
+.hero-specialties-card::before {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 280px;
-  height: 340px;
-  background: radial-gradient(circle, rgba(0, 255, 102, 0.32) 0%, rgba(16, 185, 129, 0.12) 50%, transparent 70%);
-  filter: blur(45px);
-  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(0, 255, 102, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
-.safeer-half-portrait {
-  position: relative;
-  z-index: 2;
-  width: auto;
-  max-height: 440px;
-  max-width: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(0, 255, 102, 0.35));
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+.specialties-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: 0.75rem;
 }
 
-.safeer-half-portrait:hover {
-  transform: scale(1.03) translateY(-4px);
-  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 40px rgba(0, 255, 102, 0.55));
+.spec-label-mini {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.spec-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-green);
+  background: rgba(0, 255, 102, 0.1);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 102, 0.25);
+}
+
+.status-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.specialties-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.specialties-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: #cbd5e1;
+}
+
+.specialties-list li i {
+  color: var(--accent-green);
+  font-size: 0.9rem;
+  width: 18px;
+}
+
+.specialties-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-dim);
+  padding-top: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.specialties-location i {
+  color: var(--accent-green);
 }
 
 /* 3. Left-to-Right Distributed Stats Bar */
@@ -1548,16 +1662,36 @@ footer.site-footer {
   }
   .hero-bio-row {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
   }
-  .hero-half-img-col {
-    order: -1;
+  .hero-stage-portrait-img {
+    height: 72%;
+    max-height: 290px;
+    right: -10px;
+    bottom: 0;
+    opacity: 0.92;
   }
-  .hero-half-img-wrap {
-    max-width: 260px;
+  .hero-stage-portrait-glow {
+    width: 200px;
+    height: 220px;
+    right: 0;
+    bottom: 5%;
   }
-  .safeer-half-portrait {
-    max-height: 320px;
+  .hero-stage-subtitle-wrap {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    max-width: calc(100% - 1.5rem);
+  }
+  .hero-stage-subtitle-bar {
+    padding: 0.35rem 0.8rem;
+    gap: 7px;
+  }
+  .hero-stage-subtitle-bar .hero-subtitle-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+  }
+  .hero-specialties-card {
+    padding: 1.5rem;
   }
   .hero-stats-row-distributed {
     grid-template-columns: repeat(2, 1fr);

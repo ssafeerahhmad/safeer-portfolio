@@ -55,25 +55,34 @@
           title="Safeer Ahmad 3D Interactive Scene"
           class="hero-spline-iframe">
         </iframe>
+
+        <!-- Hero Stage Foreground Overlays (Still Portrait on Right & Subtitle Bottom-Right) -->
+        <div class="hero-stage-overlay" id="heroStageOverlay">
+          <!-- Ambient Neon Glow Behind Portrait -->
+          <div class="hero-stage-portrait-glow"></div>
+          
+          <!-- Safeer Half Cutout PNG anchored to right corner (still & pointer-transparent) -->
+          <img src="assets/safeer-half.png" alt="Safeer Ahmad - Half Portrait" class="hero-stage-portrait-img">
+
+          <!-- Subtitle Profession Bar Aligned Bottom-Right -->
+          <div class="hero-stage-subtitle-wrap">
+            <div class="hero-subtitle-bar hero-stage-subtitle-bar">
+              <span class="hero-subtitle-tag">Graphic Designer</span>
+              <span class="subtitle-sep">|</span>
+              <span class="hero-subtitle-tag">3D Designer</span>
+              <span class="subtitle-sep">|</span>
+              <span class="hero-subtitle-tag">Motion Designer</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Hero Content Overlay (Slides up over the 3D scene as user scrolls) -->
     <div class="hero-scroll-overlay" id="heroScrollOverlay">
       <div class="container hero-container-rel">
-        
-        <!-- Subtitle Profession Bar -->
-        <div class="hero-subtitle-bar-wrapper">
-          <div class="hero-subtitle-bar">
-            <span class="hero-subtitle-tag">Graphic Designer</span>
-            <span class="subtitle-sep">|</span>
-            <span class="hero-subtitle-tag">3D Designer</span>
-            <span class="subtitle-sep">|</span>
-            <span class="hero-subtitle-tag">Motion Designer</span>
-          </div>
-        </div>
 
-        <!-- 2. Middle Row: Left Bio & Right Half Cutout Image -->
+        <!-- 2. Middle Row: Left Bio & Right Creative Specialties -->
         <div class="hero-bio-row" id="about">
           <!-- Left: Bio Card & Details -->
           <div class="hero-bio-col">
@@ -99,11 +108,24 @@
             </div>
           </div>
 
-          <!-- Right: Half Cutout Image (Clean, No floating badges) -->
-          <div class="hero-half-img-col">
-            <div class="hero-half-img-wrap">
-              <div class="hero-half-img-glow"></div>
-              <img src="assets/safeer-half.png" alt="Safeer Ahmad - Half Portrait" class="safeer-half-portrait">
+          <!-- Right: Key Disciplines & Availability Card -->
+          <div class="hero-specialties-col">
+            <div class="hero-specialties-card">
+              <div class="specialties-header">
+                <span class="spec-label-mini">Creative Focus</span>
+                <span class="spec-status-indicator">
+                  <span class="status-live-dot"></span> Available for Projects
+                </span>
+              </div>
+              <ul class="specialties-list">
+                <li><i class="fa-solid fa-cube text-accent"></i> <span>3D Visualization & Modeling</span></li>
+                <li><i class="fa-solid fa-film text-accent"></i> <span>Motion Graphics & Animation</span></li>
+                <li><i class="fa-solid fa-pen-nib text-accent"></i> <span>Brand Identity & Signage Design</span></li>
+                <li><i class="fa-solid fa-camera-retro text-accent"></i> <span>Exhibition, Media & Film VFX</span></li>
+              </ul>
+              <div class="specialties-location">
+                <i class="fa-solid fa-location-dot"></i> Calicut, Kerala • Worldwide Remote
+              </div>
             </div>
           </div>
         </div>
